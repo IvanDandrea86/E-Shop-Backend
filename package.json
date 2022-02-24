@@ -1,0 +1,26 @@
+{
+  "name": "e-shop-backend",
+  "version": "1.0.0",
+  "description": "e-shop backend node.js prisma grahpql postgresql",
+  "main": "index.ts",
+  "scripts": {
+    "watch":"tsc --watch",
+    "dev":"nodemon ./dist/index.js",
+    "start:dev:local":"concurrently \"npm run watch\" \"npm run dev\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js",
+    "backend",
+    "prisma",
+    "graphql",
+    "postgresql",
+    "redis",
+    "typescript"
+  ],
+  "author": "Ivan D'Andrea",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
