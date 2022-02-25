@@ -1,4 +1,4 @@
-import { Entity, ManyToOne,  OneToMany,  PrimaryKey, Property } from "@mikro-orm/core";
+import { Entity, ManyToOne,  PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ObjectType} from "type-graphql";
 import { Shopping_Session } from "../shopping_session/shopping_session.entity";
 import { Product } from "../product/product.entity";
