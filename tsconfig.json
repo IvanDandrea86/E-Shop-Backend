@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-      "target": "ES6",
+      "target": "es2018",
       "module": "commonjs",
-      "lib": ["DOM", "es6", "es2017", "esnext.asynciterable","ScriptHost","DOM.Iterable"],
+      "lib": ["DOM", "es6", "es2018", "esnext.asynciterable","ScriptHost","DOM.Iterable"],
       "skipLibCheck": true,
       "sourceMap": true,
       "outDir": "./dist",
