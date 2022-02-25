@@ -12,6 +12,8 @@ export default {
     allOrNothing: true, // run all migrations in current batch in master transaction
     emit: 'ts', // migration generation mode 
   },
+  registerRequestContext: false, // disable the automatic context
+  allowGlobalContext:true,
   entities: ['./dist/entities'], // path to our JS entities (dist), relative to `baseDir`
   entitiesTs: ['./src/entities'],
   dbName : MIKRO_ORM_DB_NAME,
