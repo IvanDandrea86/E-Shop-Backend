@@ -1,27 +1,22 @@
-import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
+import { Entity, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ObjectType } from "type-graphql";
+import { Product } from "../product/product.entity";
 
 @ObjectType()
 @Entity()
-export class Discount {
-  @Field()
+export class Product_Inventory {
+
+    @Field()
   @PrimaryKey()
   id!: number;
 
-  @Field()
-  @Property()
-  name!: string;
+  @Field(()=>Product)
+  @ManyToOne(()=>Product)
+  product_id!: Product;
 
   @Field()
   @Property()
-  desc!: string;
-  @Field()
-  @Property()
-  discount_percet!: number;
-
-  @Field()
-  @Property()
-  active!: boolean;
+  quantity!: string;
 
 
   @Field()
