@@ -1,12 +1,14 @@
-import { MikroORM } from '@mikro-orm/core';
+
 import type { PostgreSqlDriver } from '@mikro-orm/postgresql'; // or any other driver package
+import { Options } from '@mikro-orm/core';
+import { MikroORM } from "@mikro-orm/core";
+import config from './mikro-orm.config';
 
 export const loadMikroORM=async()=>{
-const orm = await MikroORM.init<PostgreSqlDriver>({
-  entities: ['./dist/entities'], // path to our JS entities (dist), relative to `baseDir`
-  entitiesTs: ['./src/entities'], // path to our TS entities (src), relative to `baseDir`
-  dbName: 'my-db-name',
-  type: 'postgresql',
-});
-console.log(orm.em); // access EntityManager via `em` property
+
+  const orm = await MikroORM.init<PostgreSqlDriver>(config as Options<PostgreSqlDriver>);
+  console.log(orm.em);
 }
+
+
+
