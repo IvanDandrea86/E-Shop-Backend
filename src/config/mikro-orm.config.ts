@@ -23,5 +23,6 @@ export default {
   port:MIKRO_ORM_PORT	,
   host:MIKRO_ORM_HOST,
   debug: !__prod__,
+  
 };
 

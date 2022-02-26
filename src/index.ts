@@ -14,7 +14,10 @@ const lunchServer = async () => {
   const orm = await MikroORM.init<PostgreSqlDriver>(
     config as Options<PostgreSqlDriver>
   );
-//   await orm.getMigrator().up();
+  //migration
+  // const migrator = orm.getMigrator();
+  // await migrator.createMigration(); // creates file Migration20191019195930.ts
+  // await migrator.up(); // runs migrations up to the latest
   // init Express
   const app = express();
   // Load ApolloServer
@@ -24,6 +27,7 @@ const lunchServer = async () => {
       validate: true,
       // authChecker:authChecker,
     }),
+
     introspection: true,
     // playground: true,
     context: () => ({ em: orm.em }),

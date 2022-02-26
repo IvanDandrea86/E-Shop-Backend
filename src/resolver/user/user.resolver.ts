@@ -9,8 +9,6 @@ export default class UserResolver {
     
     @Query(() => [User], { nullable: true })
   me(@Ctx() ctx:MyContext) {
-   
-
     return ctx.em.find(User,{});
   }
 }
