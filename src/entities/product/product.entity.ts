@@ -23,9 +23,9 @@ export class Product {
   @Property()
   SKU!: string;
 
-  @Field(() => Product_Category)
+  @Field(() => [Product_Category])
   @ManyToOne(() => Product_Category)
-  category_id!: Product_Category;
+  category_id!: [Product_Category];
 
   @Field(() => Product_Inventory)
   @OneToMany(() => Product_Inventory, invetory_id => invetory_id.product_id)
@@ -35,9 +35,9 @@ export class Product {
   @Property()
   price!: number;
 
-  @Field(()=>Discount)
+  @Field(()=>[Discount])
   @ManyToOne(()=>Discount)
-  discount_id!: Discount;
+  discount_id!: Discount[];
 
   @Field()
   @Property()

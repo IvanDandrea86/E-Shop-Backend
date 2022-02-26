@@ -32,10 +32,10 @@
     "@mikro-orm/core": "^5.0.4",
     "@mikro-orm/migrations": "^5.0.4",
     "@mikro-orm/postgresql": "^5.0.4",
-    "apollo-server-express": "^3.6.3",
+    "apollo-server-express": "^2.6.3",
     "class-validator": "^0.13.2",
     "express": "^4.17.3",
-    "graphql": "^15.8.0",
+    "graphql": "^15.0.0",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.1",
     "typedi": "^0.10.0"

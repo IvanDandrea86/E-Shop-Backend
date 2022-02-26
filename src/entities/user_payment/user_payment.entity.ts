@@ -5,7 +5,7 @@ import { User } from "../user/user.entities";
 
 @ObjectType()
 @Entity()
-export class User_Payement {
+export class User_Payment {
     @Field()
     @PrimaryKey()
     id!: number;

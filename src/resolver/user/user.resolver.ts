@@ -7,8 +7,8 @@ import { MyContext } from "src/type/type";
 @Resolver(() => User )
 export default class UserResolver {
     
-    @Query(() => [User], { nullable: true })
-  me(@Ctx() ctx:MyContext) {
+    @Query(() => [User], { name:"getAllUser" })
+    getAllUser(@Ctx() ctx:MyContext) {
     return ctx.em.find(User,{});
   }
 }

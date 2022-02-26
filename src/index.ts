@@ -16,9 +16,9 @@ const lunchServer = async () => {
   );
   //migration
   // const migrator = orm.getMigrator();
-  // await migrator.createMigration(); // creates file Migration20191019195930.ts
+  // await migrator.createMigration(); 
   // await migrator.up(); // runs migrations up to the latest
-  // init Express
+  //Init Express
   const app = express();
   // Load ApolloServer
   const apolloServer = new ApolloServer({
@@ -27,9 +27,8 @@ const lunchServer = async () => {
       validate: true,
       // authChecker:authChecker,
     }),
-
     introspection: true,
-    // playground: true,
+    playground: true,
     context: () => ({ em: orm.em }),
   });
   apolloServer.start().then(() => {
