@@ -1,6 +1,6 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20220225211345 extends Migration {
+export class Migration20220226154416 extends Migration {
 
   async up(): Promise<void> {
     this.addSql('create table "user" ("id" serial primary key, "username" varchar(255) not null, "email" varchar(255) not null, "first_name" varchar(255) not null, "last_name" varchar(255) not null, "telephone" int not null, "password" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
@@ -9,7 +9,7 @@ export class Migration20220225211345 extends Migration {
 
     this.addSql('create table "user_address" ("id" serial primary key, "user_id_id" int not null, "addresse_line1" varchar(255) not null, "addresse_line2" varchar(255) not null, "city" varchar(255) not null, "postal_code" int not null, "country" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
 
-    this.addSql('create table "user_payement" ("id" serial primary key, "user_id_id" int not null, "payment_type" varchar(255) not null, "provider" varchar(255) not null, "account_no" int not null, "expiry" timestamptz(0) not null, "country" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
+    this.addSql('create table "user_payment" ("id" serial primary key, "user_id_id" int not null, "payment_type" varchar(255) not null, "provider" varchar(255) not null, "account_no" int not null, "expiry" timestamptz(0) not null, "country" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
 
     this.addSql('create table "shopping_session" ("id" serial primary key, "user_id_id" int not null, "total" int not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
 
@@ -34,7 +34,7 @@ export class Migration20220225211345 extends Migration {
 
     this.addSql('alter table "user_address" add constraint "user_address_user_id_id_foreign" foreign key ("user_id_id") references "user" ("id") on update cascade;');
 
-    this.addSql('alter table "user_payement" add constraint "user_payement_user_id_id_foreign" foreign key ("user_id_id") references "user" ("id") on update cascade;');
+    this.addSql('alter table "user_payment" add constraint "user_payment_user_id_id_foreign" foreign key ("user_id_id") references "user" ("id") on update cascade;');
 
     this.addSql('alter table "shopping_session" add constraint "shopping_session_user_id_id_foreign" foreign key ("user_id_id") references "user" ("id") on update cascade;');
 

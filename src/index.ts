@@ -15,9 +15,9 @@ const lunchServer = async () => {
     config as Options<PostgreSqlDriver>
   );
   //migration
-  // const migrator = orm.getMigrator();
-  // await migrator.createMigration(); 
-  // await migrator.up(); // runs migrations up to the latest
+  const migrator = orm.getMigrator();
+  await migrator.createMigration(); 
+  await migrator.up(); // runs migrations up to the latest
   //Init Express
   const app = express();
   // Load ApolloServer

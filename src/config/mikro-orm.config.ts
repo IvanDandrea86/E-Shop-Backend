@@ -4,7 +4,8 @@ import {__prod__,MIKRO_ORM_DB_NAME, MIKRO_ORM_PASSWORD, MIKRO_ORM_USER, MIKRO_OR
 export default {
   migrations: {
     path: './dist/migrations',
-    pathTs: './src/migrations',  
+    pathTs: './src/migrations', 
+    wrap : false, 
     tableName: 'mikro_orm_migrations', // migrations table name
     glob: '!(*.d).{js,ts}', // how to match migration files (all .js and .ts files, but not .d.ts)
     transactional: true, // run each migration inside transaction
@@ -23,6 +24,6 @@ export default {
   port:MIKRO_ORM_PORT	,
   host:MIKRO_ORM_HOST,
   debug: !__prod__,
-  
+
 };
 

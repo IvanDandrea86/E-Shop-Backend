@@ -326,11 +326,11 @@
           "mappedType": "datetime"
         }
       },
-      "name": "user_payement",
+      "name": "user_payment",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "user_payement_pkey",
+          "keyName": "user_payment_pkey",
           "columnNames": [
             "id"
           ],
@@ -341,12 +341,12 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "user_payement_user_id_id_foreign": {
-          "constraintName": "user_payement_user_id_id_foreign",
+        "user_payment_user_id_id_foreign": {
+          "constraintName": "user_payment_user_id_id_foreign",
           "columnNames": [
             "user_id_id"
           ],
-          "localTableName": "public.user_payement",
+          "localTableName": "public.user_payment",
           "referencedColumnNames": [
             "id"
           ],
