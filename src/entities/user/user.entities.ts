@@ -1,8 +1,6 @@
 import { Entity,   PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ObjectType} from "type-graphql";
 
-
-
 @ObjectType()
 @Entity()
 export class User  {
@@ -18,18 +16,18 @@ export class User  {
     @Property({ unique: true })
     email!: string;
   
-    @Field()
-    @Property()
-    first_name!: string;
+    @Field({nullable:true})
+    @Property({nullable:true})
+    first_name: string;
   
-    @Field()
-    @Property()
-    last_name!: string;
+    @Field({nullable:true})
+    @Property({nullable:true})
+    last_name: string;
   
 
     @Field({nullable:true})
-    @Property()
-    telephone!: number;
+    @Property({nullable:true})
+    telephone: number;
 
     @Property()
     password!: string;
@@ -40,5 +38,11 @@ export class User  {
     @Field()
     @Property({ onUpdate: () => new Date() })
     updatedAt: Date = new Date();
+
+    constructor(username: string, email: string,password:string) {
+        this.username = username;
+        this.email = email;
+        this.password=password
+      }
 
 }

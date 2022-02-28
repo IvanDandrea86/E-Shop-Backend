@@ -14,7 +14,7 @@ export class Order_Items {
   @ManyToOne(()=>Order_Details)
   order_id!: number;
 
-  @Field()
+  @Field(()=>Number)
   @OneToOne(()=>Product)
   product_id!: number;
 
