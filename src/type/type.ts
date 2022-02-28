@@ -13,5 +13,10 @@ field:string;
 
 @Field()
 message:string;
+constructor (field:string,message:string){
+    this.field=field;
+    this.message=message;
+}
 
 }
+

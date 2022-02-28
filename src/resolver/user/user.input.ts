@@ -1,6 +1,6 @@
-import { User } from "../entities/user/user.entities";
+import { User } from "../../entities/user/user.entities";
 import { Field, InputType, ObjectType } from "type-graphql";
-import { ErrorField } from "./type";
+import { ErrorField } from "../../type/type";
 @InputType()
 export class UserInput
 {

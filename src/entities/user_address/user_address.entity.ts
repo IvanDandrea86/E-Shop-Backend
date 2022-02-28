@@ -16,23 +16,22 @@ export class User_Address  {
   
     @Field({nullable:true})
     @Property()
-    addresse_line1!: string;
+    addresse_line1?: string;
   
     @Field({nullable:true})
     @Property()
-    addresse_line2!: string;
+    addresse_line2?: string;
   
-    @Field()
-    @Property()
-    city!: string;
-  
-
     @Field({nullable:true})
     @Property()
-    postal_code!: number;
-    @Field()
+    city?: string;
+  
+    @Field({nullable:true})
     @Property()
-    country!: string;
+    postal_code?: number;
+    @Field({nullable:true})
+    @Property()
+    country?: string;
   
     @Field()
     @Property()
@@ -40,5 +39,8 @@ export class User_Address  {
     @Field()
     @Property({ onUpdate: () => new Date() })
     updatedAt: Date = new Date();
+    constructor(user_id:User){
+        this.user_id=user_id;
+    }
 
 }
