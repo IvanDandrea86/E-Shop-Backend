@@ -20,19 +20,24 @@ export default class UserResolver {
 
   const password=await bcrypt.hash(userInput.password, 8);
     
-
+//Insert validation here or with Decorator
      try {
     const user = new User(userInput.username,userInput.email,password);
-    // if (userData !==null){
-    //   user.last_name=userData.last_name
-    //   user.first_name=userData.first_name,
-    //   user.telephone=userData.telephone
-    // }
+    if (userData !==undefined){
+      user.last_name=userData.last_name
+      user.first_name=userData.first_name,
+      user.telephone=userData.telephone
+    }
     await ctx.em.persistAndFlush(user)
     return {user:user}
   } catch (e) {
-    console.error(e)
+    console.log(e.code)
+    if (e.code==23505){
+      return {errors:{field:"userInput",message:"one of the field is not unique"}}
+  
+    }
     return {errors:{field:"creation",message:"Something goes wrong"}}
+  
   }
 
 }  
