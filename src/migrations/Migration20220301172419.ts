@@ -1,17 +1,19 @@
 import { Migration } from '@mikro-orm/migrations';
 
-export class Migration20220226154416 extends Migration {
+export class Migration20220301172419 extends Migration {
 
   async up(): Promise<void> {
-    this.addSql('create table "user" ("id" serial primary key, "username" varchar(255) not null, "email" varchar(255) not null, "first_name" varchar(255) not null, "last_name" varchar(255) not null, "telephone" int not null, "password" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
+    this.addSql('create table "user" ("id" uuid not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "username" varchar(255) not null, "email" varchar(255) not null, "first_name" varchar(255) null, "last_name" varchar(255) null, "telephone" int null, "password" varchar(255) not null);');
     this.addSql('alter table "user" add constraint "user_username_unique" unique ("username");');
     this.addSql('alter table "user" add constraint "user_email_unique" unique ("email");');
+    this.addSql('alter table "user" add constraint "user_pkey" primary key ("id");');
 
-    this.addSql('create table "user_address" ("id" serial primary key, "user_id_id" int not null, "addresse_line1" varchar(255) not null, "addresse_line2" varchar(255) not null, "city" varchar(255) not null, "postal_code" int not null, "country" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
+    this.addSql('create table "user_address" ("id" uuid not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "user_id" uuid not null, "addresse_line1" varchar(255) null, "addresse_line2" varchar(255) null, "city" varchar(255) null, "postal_code" int null, "country" varchar(255) null);');
+    this.addSql('alter table "user_address" add constraint "user_address_pkey" primary key ("id");');
 
-    this.addSql('create table "user_payment" ("id" serial primary key, "user_id_id" int not null, "payment_type" varchar(255) not null, "provider" varchar(255) not null, "account_no" int not null, "expiry" timestamptz(0) not null, "country" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
+    this.addSql('create table "user_payment" ("id" serial primary key, "user_id_id" uuid not null, "payment_type" varchar(255) not null, "provider" varchar(255) not null, "account_no" int not null, "expiry" timestamptz(0) not null, "country" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
 
-    this.addSql('create table "shopping_session" ("id" serial primary key, "user_id_id" int not null, "total" int not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
+    this.addSql('create table "shopping_session" ("id" serial primary key, "user_id_id" uuid not null, "total" int not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
 
     this.addSql('create table "product_category" ("id" serial primary key, "name" varchar(255) not null, "desc" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "deleted_at" timestamptz(0) not null);');
 
@@ -23,7 +25,7 @@ export class Migration20220226154416 extends Migration {
 
     this.addSql('create table "product_inventory" ("id" serial primary key, "product_id_id" int not null, "quantity" varchar(255) not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "deleted_at" timestamptz(0) not null);');
 
-    this.addSql('create table "order_details" ("id" serial primary key, "user_id_id" int not null, "payment_id_id" int not null, "total" int not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
+    this.addSql('create table "order_details" ("id" serial primary key, "user_id_id" uuid not null, "payment_id_id" int not null, "total" int not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
     this.addSql('alter table "order_details" add constraint "order_details_user_id_id_unique" unique ("user_id_id");');
     this.addSql('alter table "order_details" add constraint "order_details_payment_id_id_unique" unique ("payment_id_id");');
 
@@ -32,7 +34,7 @@ export class Migration20220226154416 extends Migration {
 
     this.addSql('create table "cart_item" ("id" serial primary key, "session_id_id" int not null, "product_id_id" int not null, "quantity" int not null, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null);');
 
-    this.addSql('alter table "user_address" add constraint "user_address_user_id_id_foreign" foreign key ("user_id_id") references "user" ("id") on update cascade;');
+    this.addSql('alter table "user_address" add constraint "user_address_user_id_foreign" foreign key ("user_id") references "user" ("id") on update cascade on delete cascade;');
 
     this.addSql('alter table "user_payment" add constraint "user_payment_user_id_id_foreign" foreign key ("user_id_id") references "user" ("id") on update cascade;');
 

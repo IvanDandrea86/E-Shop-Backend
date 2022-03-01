@@ -33,8 +33,9 @@ export default class UserResolver {
         errors:new ErrorField("password","not valid password")
       } 
     }
+    userInput.password=password
     try {
-      const user = new User(userInput.username, userInput.email, password);
+      const user = new User(userInput);
       if (userData !== undefined) {
         user.last_name = userData.last_name;
         (user.first_name = userData.first_name),
@@ -52,4 +53,17 @@ export default class UserResolver {
       return { errors: new ErrorField("creation","Error during greation") };
     }
   }
+  @Mutation(() =>UserResponse || Boolean, { name: "deleteUser" })
+  async deleteUser(
+    @Arg("userID") userID:string,
+    @Ctx() ctx: MyContext):Promise<UserResponse | Boolean> {
+      try{
+   const user= await ctx.em.findOneOrFail(User, {id:userID});
+   await ctx.em.remove(user).flush()
+        return true
+  }
+  catch(err){
+    return {errors:new ErrorField("delete",err)}
+  }
+  }  
 }

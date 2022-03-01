@@ -1,48 +1,46 @@
-import { Entity,   PrimaryKey, Property } from "@mikro-orm/core";
+import { Cascade, Collection, Entity,   OneToMany,   PrimaryKey, Property, Unique } from "@mikro-orm/core";
+import { Base } from "../../util/base.entity";
 import { Field, ObjectType} from "type-graphql";
+import { User_Address } from "../user_address/user_address.entity";
+import { UserInput } from "../../resolver/user/user.input";
 
 @ObjectType()
 @Entity()
-export class User  {
-    @Field()
-    @PrimaryKey()
-    id!: number;
+export class User extends Base<User> {
+   
   
     @Field()
-    @Property({ unique: true })
-    username!: string;
+    @Property()
+    @Unique()
+    public username: string;
   
     @Field()
-    @Property({ unique: true })
-    email!: string;
+    @Property()
+    @Unique()
+    public email: string;
   
     @Field({nullable:true})
     @Property({nullable:true})
-    first_name: string;
+    public first_name?: string;
   
     @Field({nullable:true})
     @Property({nullable:true})
-    last_name: string;
+    public last_name?: string;
   
 
     @Field({nullable:true})
     @Property({nullable:true})
-    telephone: number;
+    public telephone?: number;
 
     @Property()
     password!: string;
+
+    @Field(() => [User_Address])
+    @OneToMany(() => User_Address, (b: User_Address) => b.user, { cascade: [Cascade.ALL] })
+    public address = new Collection<User_Address>(this);
+
+    constructor(body: UserInput) {
+      super(body);
+    }
   
-    @Field()
-    @Property()
-    createdAt: Date = new Date();
-    @Field()
-    @Property({ onUpdate: () => new Date() })
-    updatedAt: Date = new Date();
-
-    constructor(username: string, email: string,password:string) {
-        this.username = username;
-        this.email = email;
-        this.password=password
-      }
-
 }

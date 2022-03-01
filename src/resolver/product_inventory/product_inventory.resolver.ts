@@ -1,7 +1,7 @@
 import {Service} from "typedi"
 import { Ctx, Query, Resolver } from "type-graphql"
 import { Product_Inventory } from "../../entities/product_inventory/product_inventory.entity"
-import { MyContext } from "src/type/type";
+import { MyContext } from "../../type/type";
 
 @Service() // Dependencies injection
 @Resolver(() => Product_Inventory )
