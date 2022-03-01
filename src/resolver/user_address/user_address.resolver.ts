@@ -9,13 +9,12 @@ import { AddressInput } from "./user_address.input";
 @Service() // Dependencies injection
 @Resolver(() => User_Address )
 export default class User_AddressResolver {
-    
     @Query(() => [User_Address], { name:"getAllUser_Address" })
-    getAllUser_Address(@Ctx() ctx:MyContext) {
-    return ctx.em.find(User_Address,{});
+    public async getAllUser_Address(@Ctx() ctx:MyContext) {
+    return await ctx.em.find(User_Address,{});
   }
   @Mutation(()=>AddressResponse,{name:"newAddress"})
-  async newAddress(
+  public async newAddress(
     @Ctx() ctx:MyContext,
     @Arg("userID") userID:string,
     @Arg("addressData",{nullable:true}) addressData:AddressInput,
@@ -24,6 +23,7 @@ export default class User_AddressResolver {
     const address= new User_Address(addressData)
     address.user= await ctx.em.getRepository(User)
     .findOneOrFail({id:userID})
+     await ctx.em.getRepository(User_Address).persistAndFlush(address)
       return {address:address}
   }
   catch(err){

@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Info, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../../entities/user/user.entities";
 import { ErrorField, MyContext } from "../../type/type";
 import { UserData, UserInput, UserResponse } from "./user.input";
@@ -8,14 +8,13 @@ import { isValidEmail, isValidPassword } from "../../util/validation";
 @Service() // Dependencies injection
 @Resolver(() => User)
 export default class UserResolver {
-  @Query(() => [User], { name: "getAllUser" })
-  async getAllUser(@Ctx() ctx: MyContext) {
 
-
-    return await ctx.em.find(User, {});
+  @Query(() => [User],{ name: "getUsers" })
+  public async getUsers(@Ctx() ctx: MyContext): Promise<User[]> {
+    return await ctx.em.getRepository(User).findAll({});
   }
   @Mutation(() => UserResponse, { name: "createUser" })
-  async createUser(
+  public async createUser(
     @Arg("userInput") userInput: UserInput,
     @Arg("userData", { nullable: true }) userData: UserData,
     @Ctx() ctx: MyContext
