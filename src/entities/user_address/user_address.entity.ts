@@ -1,8 +1,8 @@
-import { Cascade, Entity, ManyToOne, Property } from "@mikro-orm/core";
-import { AddressInput } from "../../resolver/user_address/user_address.input";
+import { Entity, ManyToOne, Property } from "@mikro-orm/core";
+import { AddressInput } from "./user_address.input";
 import { Base } from "../../util/base.entity";
 import { Field, ObjectType} from "type-graphql";
-import { User } from "../user/user.entities";
+import { User } from "../user/user.entity";
 
 
 @ObjectType()

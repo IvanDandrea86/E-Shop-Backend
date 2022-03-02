@@ -1,8 +1,8 @@
 import { Service } from "typedi";
-import { Arg, Ctx, Info, Mutation, Query, Resolver } from "type-graphql";
-import { User } from "../../entities/user/user.entities";
+import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { User } from "../../entities/user/user.entity";
 import { ErrorField, MyContext } from "../../type/type";
-import { UserData, UserInput, UserResponse } from "./user.input";
+import { UserData, UserInput, UserResponse } from "../../entities/user/user.input";
 import bcrypt from "bcrypt";
 import { isValidEmail, isValidPassword } from "../../util/validation";
 @Service() // Dependencies injection

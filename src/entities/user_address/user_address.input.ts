@@ -1,4 +1,4 @@
-import { User_Address } from "../../entities/user_address/user_address.entity";
+import { User_Address } from "./user_address.entity";
 import { ErrorField } from "../../type/type";
 import { Field, InputType, ObjectType } from "type-graphql";
 @InputType()

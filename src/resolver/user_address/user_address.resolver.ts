@@ -2,9 +2,9 @@ import {Service} from "typedi"
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql"
 import { User_Address } from "../../entities/user_address/user_address.entity"
 import { ErrorField, MyContext } from "../../type/type";
-import { AddressResponse } from "../user_address/user_address.input";
-import { User } from "../../entities/user/user.entities";
-import { AddressInput } from "./user_address.input";
+import { AddressResponse } from "../../entities/user_address/user_address.input";
+import { User } from "../../entities/user/user.entity";
+import { AddressInput } from "../../entities/user_address/user_address.input";
 
 @Service() // Dependencies injection
 @Resolver(() => User_Address )

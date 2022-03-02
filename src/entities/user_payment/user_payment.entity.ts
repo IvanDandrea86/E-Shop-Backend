@@ -1,43 +1,35 @@
-import { Entity, ManyToOne,  PrimaryKey, Property } from "@mikro-orm/core";
+import { Entity, ManyToOne, Property } from "@mikro-orm/core";
+import { Base } from "../../util/base.entity";
 import { Field, ObjectType} from "type-graphql";
-import { User } from "../user/user.entities";
+import { User } from "../user/user.entity";
+import { User_Payment_Input } from "./user_payment.input";
 
 
 @ObjectType()
 @Entity()
-export class User_Payment {
-    @Field()
-    @PrimaryKey()
-    id!: number;
-
+export class User_Payment extends Base<User_Payment> {
+    
     @Field(()=>User)
-    @ManyToOne(() => User)     
-    user_id!: User;
+    @ManyToOne(() => User,{onDelete:'cascade'})     
+    user!: User;
   
     @Field({nullable:true})
     @Property()
-    payment_type!: string;
+    payment_type?: string;
   
     @Field({nullable:true})
     @Property()
-    provider!: string;
+    provider?: string;
   
-    @Field()
+    @Field({nullable:true})
     @Property()
-    account_no!: number;
+    account_no?: number;
   
-    @Field()
+    @Field({nullable:true})
     @Property()
-    expiry!: Date;
-    @Field()
-    @Property()
-    country!: string;
+    expiry?: Date;
   
-    @Field()
-    @Property()
-    createdAt: Date = new Date();
-    @Field()
-    @Property({ onUpdate: () => new Date() })
-    updatedAt: Date = new Date();
-
+constructor(body:User_Payment_Input){
+    super(body)
+}
 }

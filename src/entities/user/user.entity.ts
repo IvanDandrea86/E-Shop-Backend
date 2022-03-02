@@ -1,8 +1,9 @@
-import { Cascade, Collection, Entity,   OneToMany,   PrimaryKey, Property, Unique } from "@mikro-orm/core";
+import { Cascade, Collection, Entity,   OneToMany, Property, Unique } from "@mikro-orm/core";
 import { Base } from "../../util/base.entity";
 import { Field, ObjectType} from "type-graphql";
 import { User_Address } from "../user_address/user_address.entity";
-import { UserInput } from "../../resolver/user/user.input";
+import { UserInput } from "./user.input";
+import { User_Payment } from "../user_payment/user_payment.entity";
 
 @ObjectType()
 @Entity()
@@ -38,6 +39,11 @@ export class User extends Base<User> {
     @Field(() => [User_Address])
     @OneToMany(() => User_Address, (b: User_Address) => b.user, { cascade: [Cascade.ALL] })
     public address = new Collection<User_Address>(this);
+
+
+    @Field(() => [User_Payment])
+    @OneToMany(() => User_Payment, (b: User_Payment) => b.user, { cascade: [Cascade.ALL] })
+    public payements = new Collection<User_Payment>(this);
 
     constructor(body: UserInput) {
       super(body);

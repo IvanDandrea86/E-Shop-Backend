@@ -15,8 +15,8 @@ export default {
   },
   registerRequestContext: false, // disable the automatic context
   allowGlobalContext:true,
-  entities: ['./dist/entities'], // path to our JS entities (dist), relative to `baseDir`
-  entitiesTs: ['./src/entities'],
+  entities: ['./dist/entities/**/*.entity.js'], // path to our JS entities (dist), relative to `baseDir`
+  entitiesTs: ['./src/entities/**/*.entity.ts'],
   dbName : MIKRO_ORM_DB_NAME,
   type: 'postgresql',
   password: MIKRO_ORM_PASSWORD,

@@ -1,7 +1,7 @@
 import { Entity, OneToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ObjectType } from "type-graphql";
 import { Payment_Details } from "../payment_details/payment_details.entity";
-import { User } from "../user/user.entities";
+import { User } from "../user/user.entity";
 
 @ObjectType()
 @Entity()
