@@ -9,6 +9,8 @@ import { buildSchema } from "type-graphql";
 import { MyContext } from "./type/type";
 import { resolvers } from "./resolver";
 import { seedDatabase } from "./helpers/helpers";
+import { ApolloServerPluginLandingPageGraphQLPlayground,
+  ApolloServerPluginLandingPageDisabled } from 'apollo-server-core';
 
 async function bootstrap() {
   console.log(`Initializing database connection...`);
@@ -43,6 +45,11 @@ async function bootstrap() {
       // https://mikro-orm.io/docs/identity-map
       entityManager: orm.em.fork(),
     }),
+    plugins: [
+    process.env.NODE_ENV === 'production'
+      ? ApolloServerPluginLandingPageDisabled()
+      : ApolloServerPluginLandingPageGraphQLPlayground(),
+  ],
   });
 
   const { url } = await server.listen(4000);

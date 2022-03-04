@@ -5,8 +5,7 @@ import { ErrorField, MyContext } from "../../type/type";
 import { UserData, UserInput, UserResponse } from "../../entities/user/user.input";
 import bcrypt from "bcrypt";
 import { isValidEmail, isValidPassword } from "../../util/validation";
-import { GraphQLResolveInfo } from "graphql";
-import fieldsToRelations from "graphql-fields-to-relations";
+
 
 @Service() // Dependencies injection
 @Resolver(() => User)
