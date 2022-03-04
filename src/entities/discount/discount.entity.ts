@@ -1,13 +1,12 @@
-import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
+import { Entity, Property } from "@mikro-orm/core";
+import { Base } from "../../util/base.entity";
 import { Field, ObjectType } from "type-graphql";
+import { Discount_Input } from "./discount.input";
 
 @ObjectType()
 @Entity()
-export class Discount {
-  @Field()
-  @PrimaryKey()
-  id!: number;
-
+export class Discount extends Base<Discount> {
+  
   @Field()
   @Property()
   name!: string;
@@ -23,14 +22,7 @@ export class Discount {
   @Property()
   active!: boolean;
 
-
-  @Field()
-  @Property()
-  createdAt: Date = new Date();
-  @Field()
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
-  @Field()
-  @Property()
-  deletedAt: Date = new Date();
+constructor(body:Discount_Input){
+  super(body)
+}
 }

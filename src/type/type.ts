@@ -1,9 +1,13 @@
 
-import { EntityManager, PostgreSqlDriver, SqlEntityManager } from "@mikro-orm/postgresql";
+import { EntityManager} from "@mikro-orm/postgresql";
 import { Field, ObjectType } from "type-graphql";
 
-export type MyContext={
-    em: EntityManager<any> &  SqlEntityManager<PostgreSqlDriver>
+
+import { User } from "../entities/user/user.entity";
+
+export interface MyContext {
+  entityManager: EntityManager;
+  user: User;
 }
 @ObjectType()
 export class ErrorField{

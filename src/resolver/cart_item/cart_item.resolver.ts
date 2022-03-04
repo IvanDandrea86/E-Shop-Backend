@@ -9,6 +9,6 @@ export default class Cart_ItemResolver {
     
     @Query(() => [Cart_Item], { name:"getAllCart_Item" })
     getAllCart_Item(@Ctx() ctx:MyContext) {
-    return ctx.em.find(Cart_Item,{});
+    return ctx.entityManager.find(Cart_Item,{});
   }
 }

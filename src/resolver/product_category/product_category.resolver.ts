@@ -9,6 +9,6 @@ export default class Product_CategoryResolver {
     
     @Query(() => [Product_Category], { name:"getAllProduct_Category" })
     getAllProduct_Category(@Ctx() ctx:MyContext) {
-    return ctx.em.find(Product_Category,{});
+    return ctx.entityManager.find(Product_Category,{});
   }
 }

@@ -9,6 +9,6 @@ export default class Order_ItemsResolver {
     
     @Query(() => [Order_Items], { name:"getAllOrder_Items" })
     getAllOrder_Items(@Ctx() ctx:MyContext) {
-    return ctx.em.find(Order_Items,{});
+    return ctx.entityManager.find(Order_Items,{});
   }
 }

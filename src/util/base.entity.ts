@@ -6,7 +6,7 @@ import { v4 } from 'uuid';
 export class Base<T extends { id: string }> extends BaseEntity<T, 'id'> {
   @Field(() => ID)
   @PrimaryKey({ type: 'uuid' })
-  public id: string = v4();
+  public readonly id: string = v4();
 
   @Field()
   @Property()

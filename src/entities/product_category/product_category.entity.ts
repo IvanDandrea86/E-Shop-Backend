@@ -1,13 +1,12 @@
-import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
+import { Entity, Property } from "@mikro-orm/core";
+import { Base } from "../../util/base.entity";
 import { Field, ObjectType } from "type-graphql";
+import { Product_Category_Input } from "./product_category.input";
 
 @ObjectType()
 @Entity()
-export class Product_Category {
-  @Field()
-  @PrimaryKey()
-  id!: number;
-
+export class Product_Category extends Base<Product_Category>{
+  
   @Field()
   @Property()
   name!: string;
@@ -15,14 +14,8 @@ export class Product_Category {
   @Field({ nullable: true })
   @Property()
   desc!: string;
-
-  @Field()
-  @Property()
-  createdAt: Date = new Date();
-  @Field()
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
-  @Field()
-  @Property()
-  deletedAt: Date = new Date();
+constructor(body:Product_Category_Input){
+  super(body)
+}
+  
 }

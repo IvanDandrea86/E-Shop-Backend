@@ -10,7 +10,7 @@ import { User } from "../user/user.entity";
 export class User_Address extends Base<User_Address> {
     
     @Field(()=>User)
-    @ManyToOne(() => User,{onDelete:'cascade'})     
+    @ManyToOne( () => User, {onDelete:'cascade'})     
     public user: User;
   
     @Field({nullable:true})

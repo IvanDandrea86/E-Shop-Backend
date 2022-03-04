@@ -36,12 +36,12 @@ export class User extends Base<User> {
     @Property()
     password!: string;
 
-    @Field(() => [User_Address])
+   
     @OneToMany(() => User_Address, (b: User_Address) => b.user, { cascade: [Cascade.ALL] })
-    public address = new Collection<User_Address>(this);
+    public address = new Collection<User_Address>(this,);
 
 
-    @Field(() => [User_Payment])
+  
     @OneToMany(() => User_Payment, (b: User_Payment) => b.user, { cascade: [Cascade.ALL] })
     public payements = new Collection<User_Payment>(this);
 

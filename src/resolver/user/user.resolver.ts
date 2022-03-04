@@ -1,17 +1,21 @@
 import { Service } from "typedi";
-import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Info, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../../entities/user/user.entity";
 import { ErrorField, MyContext } from "../../type/type";
 import { UserData, UserInput, UserResponse } from "../../entities/user/user.input";
 import bcrypt from "bcrypt";
 import { isValidEmail, isValidPassword } from "../../util/validation";
+import { GraphQLResolveInfo } from "graphql";
+import fieldsToRelations from "graphql-fields-to-relations";
+
 @Service() // Dependencies injection
 @Resolver(() => User)
 export default class UserResolver {
 
   @Query(() => [User],{ name: "getUsers" })
-  public async getUsers(@Ctx() ctx: MyContext): Promise<User[]> {
-    return await ctx.em.getRepository(User).findAll({});
+  public async getUsers
+  (@Ctx() ctx: MyContext): Promise<User[]> {
+  return ctx.entityManager.getRepository(User).findAll({} );
   }
   @Mutation(() => UserResponse, { name: "createUser" })
   public async createUser(
@@ -40,7 +44,7 @@ export default class UserResolver {
         (user.first_name = userData.first_name),
           (user.telephone = userData.telephone);
       }
-      await ctx.em.persistAndFlush(user);
+      await ctx.entityManager.persistAndFlush(user);
       return { user: user };
     } catch (e) {
       console.log(e.code);
@@ -49,7 +53,7 @@ export default class UserResolver {
           errors:new ErrorField("userInput","one of the field is not unique") 
         };
       }
-      return { errors: new ErrorField("creation","Error during greation") };
+      return { errors: new ErrorField("creation",e) };
     }
   }
   @Mutation(() =>UserResponse || Boolean, { name: "deleteUser" })
@@ -57,8 +61,8 @@ export default class UserResolver {
     @Arg("userID") userID:string,
     @Ctx() ctx: MyContext):Promise<UserResponse | Boolean> {
       try{
-   const user= await ctx.em.findOneOrFail(User, {id:userID});
-   await ctx.em.remove(user).flush()
+   const user= await ctx.entityManager.findOneOrFail(User, {id:userID});
+   await ctx.entityManager.remove(user).flush()
         return true
   }
   catch(err){

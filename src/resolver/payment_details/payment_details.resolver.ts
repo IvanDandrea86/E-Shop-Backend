@@ -9,6 +9,6 @@ export default class Payment_DetailsResolver {
     
     @Query(() => [Payment_Details], { name:"getAllPayment_Details" })
     getAllPayment_Details(@Ctx() ctx:MyContext) {
-    return ctx.em.find(Payment_Details,{});
+    return ctx.entityManager.find(Payment_Details,{});
   }
 }

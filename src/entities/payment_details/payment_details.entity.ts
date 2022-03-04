@@ -1,16 +1,15 @@
-import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
+import { Entity, Property } from "@mikro-orm/core";
+import { Base } from "../../util/base.entity";
 import { Field, ObjectType } from "type-graphql";
+import { Payment_Details_Input } from "./payment_details.input";
 
 @ObjectType()
 @Entity()
-export class Payment_Details {
-  @Field()
-  @PrimaryKey()
-  id!: number;
-
+export class Payment_Details extends Base<Payment_Details>{
+  
   @Field()
   @Property()
-  order_id!: number;
+  order_id!: string;
   @Field()
   @Property()
   amount!: number;
@@ -23,10 +22,7 @@ export class Payment_Details {
   @Property()
   status!: string;
   
-  @Field()
-  @Property()
-  createdAt: Date = new Date();
-  @Field()
-  @Property({ onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
+  constructor(body:Payment_Details_Input){
+    super(body)
+  }
 }

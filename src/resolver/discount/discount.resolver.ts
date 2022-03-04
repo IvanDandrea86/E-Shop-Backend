@@ -9,6 +9,6 @@ export default class DiscountResolver {
     
     @Query(() => [Discount], { name:"getAllDiscount" })
     getAllDiscount(@Ctx() ctx:MyContext) {
-    return ctx.em.find(Discount,{});
+    return ctx.entityManager.find(Discount,{});
   }
 }

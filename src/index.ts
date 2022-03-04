@@ -1,45 +1,52 @@
 import type { PostgreSqlDriver } from "@mikro-orm/postgresql"; // or any other driver package
 import { Options } from "@mikro-orm/core";
-import { MikroORM } from "@mikro-orm/core";
-import config from "./config/mikro-orm.config";
+import config from "./mikro-orm.config";
 import "reflect-metadata";
-import express from "express";
-import { port } from "./const";
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer } from "apollo-server";
+import * as path from "path";
+import { MikroORM} from "@mikro-orm/core";
 import { buildSchema } from "type-graphql";
+import { MyContext } from "./type/type";
 import { resolvers } from "./resolver";
+import { seedDatabase } from "./helpers/helpers";
 
-const lunchServer = async () => {
-  //Load Mikro-Orm
+async function bootstrap() {
+  console.log(`Initializing database connection...`);
+  console.log (config)
   const orm = await MikroORM.init<PostgreSqlDriver>(
     config as Options<PostgreSqlDriver>
   );
-  //migration
   const migrator = orm.getMigrator();
   await migrator.createMigration(); 
   await migrator.up(); // runs migrations up to the latest
-  //Init Express
-  const app = express();
-  // Load ApolloServer
-  const apolloServer = new ApolloServer({
-    schema: await buildSchema({
-      resolvers: resolvers,
-      validate: true,
-      // authChecker:authChecker,
-    }),
-    introspection: true,
-    playground: true,
-    context: () => ({ em: orm.em }),
-  });
-  apolloServer.start().then(() => {
-    console.log(`🚀 Graphql running at http://localhost:${port}/graphql`);
-    apolloServer.applyMiddleware({ app });
-  });
-  app.listen(port, () => {
-    console.log("server listen at port", port);
-  });
-};
 
-lunchServer().catch((err) => {
-  console.error(err);
-});
+  console.log(`Setting up the database...`);
+  const generator = orm.getSchemaGenerator();
+  // remember to create database manually before launching the code
+  await generator.dropSchema();
+  await generator.createSchema();
+  await generator.updateSchema();
+  // seed database with some data
+   const { defaultUser } = await seedDatabase(orm.em);
+
+  console.log(`Bootstraping schema and server...`);
+  const schema = await buildSchema({
+    resolvers: resolvers,
+    emitSchemaFile: path.resolve(__dirname, "schema.gql"),
+    validate: false,
+  });
+  const server = new ApolloServer({
+    schema,
+    context: (): MyContext => ({
+      user: defaultUser,
+      // create fresh instance of entity manager per request
+      // https://mikro-orm.io/docs/identity-map
+      entityManager: orm.em.fork(),
+    }),
+  });
+
+  const { url } = await server.listen(4000);
+  console.log(`Server is running, GraphQL Playground available at ${url}`);
+}
+
+bootstrap().catch(console.error);

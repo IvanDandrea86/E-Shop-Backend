@@ -11,7 +11,7 @@ export default class Shopping_SessionResolver {
     
     @Query(() => [Shopping_Session], { name:"getAllShopping_Session" })
     async getAllShopping_Session(@Ctx() ctx:MyContext) {
-    return await ctx.em.find(Shopping_Session,{});
+    return await ctx.entityManager.find(Shopping_Session,{});
   }
   @Mutation(()=>Shopping_SessionResponse,{name:"newShopping_Session"})
   public async newShopping_Session(
@@ -21,9 +21,9 @@ export default class Shopping_SessionResolver {
     try{
     const shopping_session= new Shopping_Session({})
     shopping_session.total=0;
-    shopping_session.user= await ctx.em.getRepository(User)
+    shopping_session.user= await ctx.entityManager.getRepository(User)
     .findOneOrFail({id:userID})
-     await ctx.em.getRepository(Shopping_Session).persistAndFlush(shopping_session)
+     await ctx.entityManager.getRepository(Shopping_Session).persistAndFlush(shopping_session)
       return {session:shopping_session}
   }
   catch(err){

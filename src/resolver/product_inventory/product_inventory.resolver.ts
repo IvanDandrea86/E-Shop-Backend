@@ -9,6 +9,6 @@ export default class Product_InvetoryResolver {
     
     @Query(() => [Product_Inventory], { name:"getAllProduct_Inventory" })
     getAllProduct_Inventory(@Ctx() ctx:MyContext) {
-    return ctx.em.find(Product_Inventory,{});
+    return ctx.entityManager.find(Product_Inventory,{});
   }
 }
