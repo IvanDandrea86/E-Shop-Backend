@@ -11,8 +11,6 @@ export async function seedDatabase(em: EntityManager) {
   const defaultUser = em.create(User, user);
   em.persist(defaultUser);
 
-  
-
   await em.flush();
   return { defaultUser };
 }

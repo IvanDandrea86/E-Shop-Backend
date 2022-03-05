@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "tsc --watch",
     "dev": "nodemon ./dist/index.js",
-    "start:dev:local": "NODE_ENV=development concurrently \"npm run watch\" \"npm run dev\"",
+    "start:dev:local": "cross-env NODE_ENV=development concurrently \"npm run watch\" \"npm run dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

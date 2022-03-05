@@ -5,7 +5,7 @@ import "reflect-metadata";
 import { ApolloServer } from "apollo-server";
 import * as path from "path";
 import { MikroORM} from "@mikro-orm/core";
-import { buildSchema } from "type-graphql";
+import { buildSchema  } from "type-graphql";
 import { MyContext } from "./type/type";
 import { resolvers } from "./resolver";
 import { seedDatabase } from "./helpers/helpers";
@@ -18,6 +18,7 @@ async function bootstrap() {
   const orm = await MikroORM.init<PostgreSqlDriver>(
     config as Options<PostgreSqlDriver>
   );
+
   const migrator = orm.getMigrator();
   await migrator.createMigration(); 
   await migrator.up(); // runs migrations up to the latest
@@ -34,7 +35,7 @@ async function bootstrap() {
   console.log(`Bootstraping schema and server...`);
   const schema = await buildSchema({
     resolvers: resolvers,
-    emitSchemaFile: path.resolve(__dirname, "schema.gql"),
+    emitSchemaFile: {path:path.resolve(__dirname, "schema.gql"),sortedSchema:true },
     validate: false,
   });
   const server = new ApolloServer({
